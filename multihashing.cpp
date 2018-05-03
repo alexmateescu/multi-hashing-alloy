@@ -372,21 +372,10 @@ NAN_METHOD(shavite3) {
 
 NAN_METHOD(cryptonight) {
     bool fast = false;
-    uint32_t cn_variant = 0;
 
     if (info.Length() < 1)
         return except("You must provide one argument.");
 
-    if (info.Length() >= 2) {
-        if (info.Length() >= 2) {
-            if(info[1]->IsBoolean())
-                fast = info[1]->ToBoolean()->BooleanValue();
-            else if(info[1]->IsUint32())
-                cn_variant = info[1]->ToUint32()->Uint32Value();
-            else
-                return except("Argument 2 should be a boolean or uint32_t");
-        }
-    }
 
     Local<Object> target = info[0]->ToObject();
 
@@ -402,9 +391,7 @@ NAN_METHOD(cryptonight) {
     if(fast)
         cryptonight_fast_hash(input, output, input_len);
     else {
-        if (cn_variant > 0 && input_len < 43)
-            return except("Argument must be 43 bytes for monero variant 1+");
-        cryptonight_hash(input, output, input_len, cn_variant, 0);
+        cryptonight_hash(input, output, input_len,  0);
     }
 
     info.GetReturnValue().Set(dest.ToLocalChecked());
@@ -412,21 +399,10 @@ NAN_METHOD(cryptonight) {
 
 NAN_METHOD(cryptonightalloy) {
     bool fast = false;
-    uint32_t cn_variant = 0;
 
     if (info.Length() < 1)
         return except("You must provide one argument.");
 
-    if (info.Length() >= 2) {
-        if (info.Length() >= 2) {
-            if(info[1]->IsBoolean())
-                fast = info[1]->ToBoolean()->BooleanValue();
-            else if(info[1]->IsUint32())
-                cn_variant = info[1]->ToUint32()->Uint32Value();
-            else
-                return except("Argument 2 should be a boolean or uint32_t");
-        }
-    }
 
     Local<Object> target = info[0]->ToObject();
 
@@ -442,9 +418,7 @@ NAN_METHOD(cryptonightalloy) {
     if(fast)
         cryptonight_fast_hash(input, output, input_len);
     else {
-        if (cn_variant > 0 && input_len < 43)
-            return except("Argument must be 43 bytes for alloy");
-        cryptonight_hash(input, output, input_len, cn_variant, 1);
+        cryptonight_hash(input, output, input_len,  1);
     }
 
     info.GetReturnValue().Set(dest.ToLocalChecked());

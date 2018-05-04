@@ -589,7 +589,7 @@ NAN_MODULE_INIT(Init) {
         GetFunction(New<FunctionTemplate>(shavite3)).ToLocalChecked());
     Nan::Set(target, New<String>("cryptonight").ToLocalChecked(),
         GetFunction(New<FunctionTemplate>(cryptonight)).ToLocalChecked());
-    Nan::Set(target, New<String>("cryptonight-alloy").ToLocalChecked(),
+    Nan::Set(target, New<String>("cryptonight_alloy").ToLocalChecked(),
         GetFunction(New<FunctionTemplate>(cryptonightalloy)).ToLocalChecked());
     Nan::Set(target, New<String>("x13").ToLocalChecked(),
         GetFunction(New<FunctionTemplate>(x13)).ToLocalChecked());
